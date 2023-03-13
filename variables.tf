@@ -248,3 +248,18 @@ variable "aws-eks-node-bastion-sg-description" {
   type = string
   default = ""
 }
+
+variable "aws-eks-iam-elb-role" {
+  type  = string
+  default = ""
+}
+
+variable "aws-eks-iam-elb-role-description" {
+  type  = string
+  default = ""
+}
+
+variable "aws-iam-role-policy-eks-elb-policy-name" {
+  type = string
+  default = ""
+}

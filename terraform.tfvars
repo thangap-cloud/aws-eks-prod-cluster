@@ -32,6 +32,13 @@ aws-iam-role-policy-ClusterAutoscalerPolicy-name  = "aws-eks-cluster-autoscaler-
 ##############################################
 aws-iam-role-policy-eks-ebs-csi-driver-policy-name  = "aws-eks-cluster-csi-policy-prod-app"
 
+#####################
+#aws-eks-elb
+#####################
+aws-eks-iam-elb-role                    = "aws-eks-lb-controller-role-prod-app"
+aws-eks-iam-elb-role-description        = "role to manage elb for eks"
+aws-iam-role-policy-eks-elb-policy-name = "aws-eks-cluster-elb-policy-prod-app"
+
 ############
 #aws-kms-key
 ############
