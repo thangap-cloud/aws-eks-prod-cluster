@@ -1,9 +1,9 @@
 ################################################################
 # AWS Private Key to Access Jump Host
 ################################################################
-module "aws-eks-private-key"
+module "aws-eks-private-key" {
 
-{
+
   source                          = "git::git@github.com:thangap-cloud/aws-module-key-pair.git"
   key_name                        = var.aws-eks-private-key-name
   public_key                      = var.aws-eks-private-key-public-key
