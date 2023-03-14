@@ -263,3 +263,9 @@ variable "aws-iam-role-policy-eks-elb-policy-name" {
   type = string
   default = ""
 }
+
+variable "values_file" {
+  description = "The name of the ArgoCD helm chart values file to use"
+  type        = string
+  default     = "values.yaml"
+}
