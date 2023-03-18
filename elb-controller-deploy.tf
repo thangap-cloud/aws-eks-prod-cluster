@@ -3,8 +3,7 @@ resource "helm_release" "aws-load-balancer-controller" {
   create_namespace = false
   name             = "aws-load-balancer-controller"
   repository       = "https://aws.github.io/eks-charts"
-  chart            = "eks/aws-load-balancer-controller"
-  version          = "v2.4.0"
+  chart            = "aws-load-balancer-controller"
 
   set {
     name  = "clusterName"
@@ -18,9 +17,8 @@ resource "helm_release" "aws-load-balancer-controller" {
 
   set {
     name  = "serviceAccount.name"
-    value = "${var.aws-eks-iam-elb-role}"
+    value = "${var.elb-sa-name}"
   }
-
 }
 
 

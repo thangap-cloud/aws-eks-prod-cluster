@@ -269,3 +269,8 @@ variable "values_file" {
   type        = string
   default     = "values.yaml"
 }
+
+variable "elb-sa-name" {
+  type = string
+  default = "aws-load-balancer-controller"
+}

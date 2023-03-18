@@ -11,7 +11,7 @@ metadata:
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/name: aws-load-balancer-controller
-  name: aws-load-balancer-controller
+  name: ${var.elb-sa-name}
   namespace: kube-system
   annotations:
     eks.amazonaws.com/role-arn: ${module.aws-eks-iam-elb-role.role-name-arn}

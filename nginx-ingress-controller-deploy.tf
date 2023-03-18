@@ -20,4 +20,5 @@ resource "helm_release" "nginx-ingress-controller" {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
     value = "internal"
   }
+
 }

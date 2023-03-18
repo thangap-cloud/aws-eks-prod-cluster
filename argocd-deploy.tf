@@ -16,4 +16,5 @@ resource "helm_release" "argocd" {
   # If values file specified by the var.values_file input variable exists then apply the values from this file
   # else apply the default values from the chart
   values = [fileexists("${path.root}/${var.values_file}") == true ? file("${path.root}/${var.values_file}") : ""]
+
 }
