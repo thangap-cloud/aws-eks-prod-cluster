@@ -22,3 +22,9 @@ resource "helm_release" "nginx-ingress-controller" {
   }
 
 }
+
+#resource "local_file" ingress_manifests {
+#  for_each = data.helm_template.nginx-ingress-controller
+#  filename = "./${each.key}"
+#  content  = each.value
+#}
