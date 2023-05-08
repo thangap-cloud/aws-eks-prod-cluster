@@ -1,6 +1,6 @@
+####################
+## ArgoCD
 ###################
-# ArgoCD
-##################
 
 resource "helm_release" "argocd" {
   namespace        = "argocd"
@@ -18,3 +18,4 @@ resource "helm_release" "argocd" {
   values = [fileexists("${path.root}/${var.values_file}") == true ? file("${path.root}/${var.values_file}") : ""]
 
 }
+

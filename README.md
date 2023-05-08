@@ -9,7 +9,7 @@ All the modules are currently private repos, which are tailored for prod require
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.3.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.4.6 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=4.21.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.2.0 |
 | <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.7.0 |
@@ -20,11 +20,9 @@ All the modules are currently private repos, which are tailored for prod require
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >=4.21.0 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 2.2.0 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.7.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | n/a |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 3.4.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.65.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.2.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 3.4.0 |
 
 ## Modules
 
@@ -54,12 +52,12 @@ All the modules are currently private repos, which are tailored for prod require
 | [aws_security_group_rule.cluster_inbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws-load-balancer-controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.ebs-csi-driver](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.nginx-ingress-controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [kubectl_manifest.eks-elb-addon](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [kubectl_manifest.elb-crdn](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
-| [local_file.ingress_manifests](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [aws_ami.amazon-linux-2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_eks_cluster.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
 | [aws_eks_cluster_auth.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [tls_certificate.cert](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |
 
 ## Inputs
@@ -82,7 +80,6 @@ All the modules are currently private repos, which are tailored for prod require
 | <a name="input_aws-eks-node-bastion-desired_capacity"></a> [aws-eks-node-bastion-desired\_capacity](#input\_aws-eks-node-bastion-desired\_capacity) | jump host desired size | `string` | `"1"` | no |
 | <a name="input_aws-eks-node-bastion-group-max-size"></a> [aws-eks-node-bastion-group-max-size](#input\_aws-eks-node-bastion-group-max-size) | jump host maximum size | `string` | `"2"` | no |
 | <a name="input_aws-eks-node-bastion-group-min-size"></a> [aws-eks-node-bastion-group-min-size](#input\_aws-eks-node-bastion-group-min-size) | jump host minimum size | `string` | `"1"` | no |
-| <a name="input_aws-eks-node-bastion-image-id"></a> [aws-eks-node-bastion-image-id](#input\_aws-eks-node-bastion-image-id) | jump host image id | `string` | `""` | no |
 | <a name="input_aws-eks-node-bastion-instance-type"></a> [aws-eks-node-bastion-instance-type](#input\_aws-eks-node-bastion-instance-type) | jump host instance type | `string` | `"t2.micro"` | no |
 | <a name="input_aws-eks-node-bastion-name"></a> [aws-eks-node-bastion-name](#input\_aws-eks-node-bastion-name) | jump host name to access eks nodes | `string` | `"aws-eks-node-bastion"` | no |
 | <a name="input_aws-eks-node-bastion-sg-description"></a> [aws-eks-node-bastion-sg-description](#input\_aws-eks-node-bastion-sg-description) | jump host sg name description | `string` | `"jump host sg"` | no |
@@ -118,6 +115,7 @@ All the modules are currently private repos, which are tailored for prod require
 | <a name="input_aws-iam-role-policy-eks-elb-policy-name"></a> [aws-iam-role-policy-eks-elb-policy-name](#input\_aws-iam-role-policy-eks-elb-policy-name) | aws eks elb iam role policy name | `string` | `"aws-iam-role-policy-eks-elb-policy"` | no |
 | <a name="input_aws-kms-alias-name"></a> [aws-kms-alias-name](#input\_aws-kms-alias-name) | aws kms key alias name | `string` | `"alias/aws-kms-key-alias-app"` | no |
 | <a name="input_aws-kms-key-description"></a> [aws-kms-key-description](#input\_aws-kms-key-description) | aws kms key description | `string` | `"aws kms key"` | no |
+| <a name="input_ebs-csi-sa-name"></a> [ebs-csi-sa-name](#input\_ebs-csi-sa-name) | ws ebs csi driver service account name | `string` | `"ebs-csi-controller-sa"` | no |
 | <a name="input_elb-sa-name"></a> [elb-sa-name](#input\_elb-sa-name) | aws elb service account name used by cluster | `string` | `"aws-load-balancer-controller"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | tags to be applied to the resources | `map(any)` | `{}` | no |
 | <a name="input_values_file"></a> [values\_file](#input\_values\_file) | The name of the ArgoCD helm chart values file to use | `string` | `"values.yaml"` | no |

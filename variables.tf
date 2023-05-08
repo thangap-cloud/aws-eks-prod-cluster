@@ -235,12 +235,6 @@ variable "aws-eks-node-bastion-name" {
   description = "jump host name to access eks nodes"
 }
 
-variable "aws-eks-node-bastion-image-id" {
-  type = string
-  default = ""
-  description = "jump host image id"
-}
-
 variable "aws-eks-node-bastion-instance-type" {
   type = string
   default = "t2.micro"
@@ -327,7 +321,13 @@ variable "values_file" {
 }
 
 variable "elb-sa-name" {
-  type = string
-  default = "aws-load-balancer-controller"
+  type        = string
+  default     = "aws-load-balancer-controller"
   description = "aws elb service account name used by cluster"
+}
+
+variable "ebs-csi-sa-name" {
+  type        = string
+  default     = "ebs-csi-controller-sa"
+  description = "ws ebs csi driver service account name"
 }

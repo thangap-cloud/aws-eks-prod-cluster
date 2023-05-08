@@ -1,4 +1,16 @@
 ################################################################
+# AWS  Bastion Instance AMI
+################################################################
+data "aws_ami" "amazon-linux-2" {
+  most_recent = true
+  owners      = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm*"]
+  }
+}
+
+################################################################
 # AWS Private Key to Access Jump Host
 ################################################################
 module "aws-eks-private-key" {
@@ -76,7 +88,8 @@ module "aws-eks-iam-ebs-csi-controller-role" {
         "Action": "sts:AssumeRoleWithWebIdentity",
         "Condition": {
           "StringEquals": {
-            "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "sts.amazonaws.com",
+            "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "system:serviceaccount:kube-system:${var.ebs-csi-sa-name}"
           }
         }
       }
@@ -105,7 +118,7 @@ module "aws-eks-iam-elb-role" {
         "Condition": {
           "StringEquals": {
             "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "sts.amazonaws.com",
-            "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "system:serviceaccount:kube-system:ebs-csi-controller-sa"
+            "${replace(aws_iam_openid_connect_provider.openid.url, "https://", "")}:sub": "system:serviceaccount:kube-system:${var.elb-sa-name}"
           }
         }
       }
@@ -562,7 +575,7 @@ resource "aws_security_group" "eks_bastion" {
 module "aws-eks-node-bastion" {
   source                                              = "git::git@github.com:thangap-cloud/aws-module-bastion.git"
   aws-launch-configuration-name-prefix                = var.aws-eks-node-bastion-name
-  aws-launch-configuration-image-id                   = var.aws-eks-node-bastion-image-id
+  aws-launch-configuration-image-id                   = data.aws_ami.amazon-linux-2.id
   aws-launch-configuration-instance-type              = var.aws-eks-node-bastion-instance-type
   aws-launch-configuration-security-groups            = [aws_security_group.eks_bastion.id]
   aws-launch-configuration-associate-public-ip-address= true
@@ -625,5 +638,3 @@ resource "aws_iam_openid_connect_provider" "openid" {
   url             = module.aws-eks-cluster.aws-eks-cluster-identity.issuer
   depends_on      = [module.aws-eks-cluster]
 }
-
-

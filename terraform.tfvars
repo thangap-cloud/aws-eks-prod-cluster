@@ -50,7 +50,7 @@ aws-kms-key-description = "kms key created for prod app "
 ############
 aws-eks-vpc-name                =  "aws-eks-vpc-prod-app"
 aws-eks-vpc-cidr                =  "10.0.0.0/16"
-aws-eks-vpc-azs                 = ["us-east-1a","us-east-1b","us-east-1c"]
+aws-eks-vpc-azs                 = ["ap-southeast-1a","ap-southeast-1b","ap-southeast-1c"]
 aws-eks-vpc-private-subnets     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 aws-eks-vpc-public-subnets      = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 aws-eks-vpc-private-subnet-names= ["priv-subnet-a","priv-subnet-b","priv-subnet-c"]
@@ -78,7 +78,6 @@ aws-eks-node-bastion-sg-description = "security group created for managing jump 
 #aws-eks-node-bastion
 #####################
 aws-eks-node-bastion-name                     = "aws-eks-jumphost"
-aws-eks-node-bastion-image-id                 = "ami-0dfcb1ef8550277af"
 aws-eks-node-bastion-instance-type            = "t2.micro"
 aws-eks-node-bastion-configuration-key-name   = "key-pair-name"
 aws-eks-node-bastion-user-data                = <<USERDATA
@@ -106,9 +105,9 @@ aws-eks-cluster-enabled-cluster-log-types   = ["api", "audit", "authenticator", 
 aws-eks-cluster-kms-resources-encryption    = ["secrets"]
 aws-eks-node-group-node-group-name          = "aws-eks-node-prod-app"
 aws-eks-node-group-labels                   = {name="eks-nodes",app="prod-app",env="prod"}
-aws-eks-node-group-instance-types           = ["t3.large"]
-aws-eks-node-group-desired_size             = "2"
-aws-eks-node-group-max-size                 = "2"
+aws-eks-node-group-instance-types           = ["t3.medium"]
+aws-eks-node-group-desired_size             = "1"
+aws-eks-node-group-max-size                 = "1"
 aws-eks-node-group-min-size                 = "1"
 
 
